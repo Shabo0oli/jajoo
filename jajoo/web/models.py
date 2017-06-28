@@ -9,10 +9,10 @@ from location_field.models.plain import PlainLocationField
 class UserInfo(models.Model):
     Username = models.OneToOneField(User, on_delete=models.CASCADE)
     Phone = PhoneNumberField()
-    #Avatar = models.ImageField(upload_to='/avatar/')
+    Avatar = models.ImageField(upload_to='avatar/', default='avatar/default.png')
 
     def __unicode__(self):
-        return "{}_{}".format(self.Username, self.Phone)
+        return "{}-{}".format(self.Username, self.Phone)
 
 
 class Place(models.Model):
@@ -27,7 +27,7 @@ class Place(models.Model):
     HasTv = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return "{}_{}".format(self.Owner, self.Address)
+        return "{}-{}".format(self.Owner, self.Address)
 
 
 class Booking(models.Model):
@@ -44,7 +44,7 @@ class Booking(models.Model):
     Status = models.CharField(max_length=20, choices=STATUS_OPTIONS, default='Pending')
 
     def __unicode__(self):
-        return "{}_{}_{}_{}".format(self.Guest, self.Place, self.CheckInDate, self.CheckOutDate)
+        return "{}-{}-{}-{}".format(self.Guest, self.Place, self.CheckInDate, self.CheckOutDate)
 
 
 class Comment(models.Model):
@@ -54,6 +54,6 @@ class Comment(models.Model):
     Place = models.ForeignKey(Place, on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return "{}_{}_{}_{}".format(self.Writer, self.Place, self.Text, self.CreationDate)
+        return "{}-{}-{}-{}".format(self.Writer, self.Place, self.Text, self.CreationDate)
 
 
