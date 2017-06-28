@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -23,5 +24,4 @@ def register(request):
 
 def logout_view(request):
     logout(request)
-    context = {}
-    return render(request, 'index.html', context)
+    return redirect('/')
