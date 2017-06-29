@@ -21,7 +21,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            usrInfo = UserInfo.objects.filter(Username=user)
+
             context = {}
+            context['avatar'] = usrInfo[0].Avatar.url[4:]
             return render(request, 'index.html', context)
         else:
             context = {}
@@ -48,7 +51,7 @@ def register(request):
             info = UserInfo(Username=user, Phone=phone)
             info.save()
             context = {}
-            return render(request, 'index.html', context)
+            return redirect('/')
     else:
         context = {}
         return render(request, 'register.html', context)
