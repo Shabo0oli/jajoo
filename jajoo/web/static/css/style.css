@@ -186,3 +186,12 @@ body {
     /* round the edges to a circle with border radius 1/2 container size */
     border-radius: 50%;
 }
+
+.btn-product{
+	width: 200%;
+}
+
+.product-image{
+    min-height: 30%;
+    max-height: 30%;
+}

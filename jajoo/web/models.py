@@ -27,6 +27,7 @@ class Place(models.Model):
     HasWifi = models.BooleanField(default=False)
     HasBath = models.BooleanField(default=False)
     HasTv = models.BooleanField(default=False)
+    Pic = models.ImageField(upload_to='web/static/homepicture/', default='web/static/homepicture/default.png')
 
     def __str__(self):
         return "{} : ({})".format(self.Owner.username, self.Address)
