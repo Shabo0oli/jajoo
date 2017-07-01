@@ -47,9 +47,10 @@
                     </a>
                 </div>
                 <div class="col-sm-4 col-md-4 pull-right" style="margin-right: 35%;">
-		            <form class="navbar-form" role="search">
+		            <form method="post" action="/search/" class="navbar-form" role="search">
+                        {% csrf_token %}
 		                <div class="input-group">
-			                <input type="text" class="form-control" placeholder="جستجو مکان در ..." name="srch-term" id="srch-term">
+			                <input type="text" class="form-control" placeholder="جستجو مکان در ..." name="srchterm" id="srchterm">
 			                <div class="input-group-btn">
 				                <button class="btn btn-default" type="submit">       جستجو       <i class="fa fa-search" aria-hidden="true"></i></button>
 			                </div>

@@ -72,3 +72,13 @@ def place(request , placeid):
     context = {}
     context['place'] = thisplace
     return render(request, 'place.html', context)
+
+
+def search(request):
+    context = {}
+    req = request.POST.get('srchterm', False)
+    result = Place.objects.filter(Address__contains=req)
+    if not result:
+        context['notFind'] = True
+    context['places'] = result
+    return render(request, 'index.html', context)
