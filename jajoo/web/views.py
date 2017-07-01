@@ -65,3 +65,10 @@ def register(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+def place(request , placeid):
+    thisplace = Place.objects.get(id=placeid)
+    context = {}
+    context['place'] = thisplace
+    return render(request, 'place.html', context)
