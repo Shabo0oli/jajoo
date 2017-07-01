@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from .models import UserInfo, Place
+from .models import UserInfo, Place, Comment
 
 # Create your views here.
 
@@ -69,8 +69,10 @@ def logout_view(request):
 
 def place(request , placeid):
     thisplace = Place.objects.get(id=placeid)
+    comments = Comment.objects.filter(Place_id=placeid)
     context = {}
     context['place'] = thisplace
+    context['comments'] = comments
     return render(request, 'place.html', context)
 
 

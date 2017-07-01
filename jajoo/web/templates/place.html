@@ -9,11 +9,29 @@
     <li><a data-toggle="tab" href="#booking">رزرو مکان</a></li>
   </ul>
 <div class="tab-content">
-<div class="row tab-pane fade" id="booking">
-    <p> khobi </p>
+<div class="row tab-pane fade" id="comment">
+    {% for comment in comments %}
+    <div class="col-sm-8">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-right meta">
+                        <div class="title h5">
+                            <a href="#"><b>{{ comment.Writer.username }}</b></a>
+
+                        </div>
+                        <h6 class="text-muted time">{{ comment.CreationDate }}</h6>
+                    </div>
+                </div>
+                <div class="post-description">
+                    <p>{{ comment.Text }}</p>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
-<div class="row tab-pane fade" id="comment">
+<div class="row tab-pane fade" id="booking">
     <p> salam </p>
 </div>
 <div class="row tab-pane fade in active" id="spec">
