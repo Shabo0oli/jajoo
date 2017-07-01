@@ -103,3 +103,4 @@ ENV/
 # Database
 db.sqlite3
 avatar/
+homepicture/

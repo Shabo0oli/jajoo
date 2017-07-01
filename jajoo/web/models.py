@@ -11,7 +11,7 @@ from location_field.models.plain import PlainLocationField
 class UserInfo(models.Model):
     Username = models.OneToOneField(User, on_delete=models.CASCADE)
     Phone = PhoneNumberField()
-    Avatar = models.ImageField(upload_to='avatar/', default='avatar/default.png')
+    Avatar = models.ImageField(upload_to='web/static/avatar/', default='web/static/avatar/default.png')
 
     def __str__(self):
         return "{} : {}".format(self.Username, self.Phone)
@@ -27,6 +27,7 @@ class Place(models.Model):
     HasWifi = models.BooleanField(default=False)
     HasBath = models.BooleanField(default=False)
     HasTv = models.BooleanField(default=False)
+    Pic = models.ImageField(upload_to='web/static/homepicture/', default='web/static/homepicture/default.png')
 
     def __str__(self):
         return "{} : ({})".format(self.Owner.username, self.Address)

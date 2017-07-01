@@ -3,13 +3,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from .models import UserInfo
+from .models import UserInfo, Place
 
 # Create your views here.
 
 
 def index(request):
+    allplace = Place.objects.all()
     context = {}
+    context['places'] = allplace
     return render(request, 'index.html', context)
 
 
@@ -21,7 +23,12 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            usrInfo = UserInfo.objects.filter(Username=user)
+
             context = {}
+            context['avatar'] = usrInfo[0].Avatar.url[4:]
+            allplace = Place.objects.all()
+            context['places'] = allplace
             return render(request, 'index.html', context)
         else:
             context = {}
@@ -30,6 +37,7 @@ def login_view(request):
     else:
         context = {}
         return render(request, 'login.html', context)
+
 
 
 def register(request):
@@ -48,7 +56,7 @@ def register(request):
             info = UserInfo(Username=user, Phone=phone)
             info.save()
             context = {}
-            return render(request, 'index.html', context)
+            return redirect('/')
     else:
         context = {}
         return render(request, 'register.html', context)
@@ -57,3 +65,10 @@ def register(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+def place(request , placeid):
+    thisplace = Place.objects.get(id=placeid)
+    context = {}
+    context['place'] = thisplace
+    return render(request, 'place.html', context)

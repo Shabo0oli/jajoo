@@ -50,7 +50,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-left">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">خروج</a></li>
+                    <li><a href="{% url 'logout' %}">خروج</a></li><li><img id="avatar" src="http://localhost:8009/{{ avatar }}" ></li>
                     {% else %}
                     <li><a href="{% url 'register' %}">ثبت نام</a></li><li><a href="{% url 'login' %}">ورود</a></li>
                     <!--<li><a href="/static/todoer_release.apk">اپ اندروید</a></li>-->
@@ -77,7 +77,7 @@
             <div class="">
 
               <p>
-                <strong>جادو</strong> پروژه مهندسی نرم افزار ۲ شهاب کریمی و کیوان مظاهری<br>
+                <strong>جاجو</strong> پروژه مهندسی نرم افزار ۲ شهاب کریمی و کیوان مظاهری<br>
 			<a href="https://github.com/Shabo0oli/jajoo">مخرن گیت‌هاب پروژه</a>
               </p>
             </div>

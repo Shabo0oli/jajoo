@@ -2,9 +2,36 @@
 {% load staticfiles %}
 
 {% block content %}
+<div class="row">
+  <div class="col-md-12">
+{% for place in places %}
+    <div class="col-sm-6 col-md-4">
+				<div class="thumbnail" >
+					<h4 class="text-center"><span class="label label-info">آپارتمان</span></h4>
+					<img src="http://localhost:8009/{{ place.Pic|cut:'web/' }}" class="img-responsive product-image">
+					<div class="caption">
+						<div class="row">
+							<div class="col-md-6 col-xs-6">
+								<h3>{{ place.CostPerDay }} تومان</h3>
+							</div>
+							<div class="col-md-6 col-xs-6 price">
+								<h3>
+								<label></label></h3>
+							</div>
+						</div>
+						<p>آدرس : {{ place.Address }}</p>
+						<div class="row">
+							<div class="col-md-6">
+								<a href="http://localhost:8009/place/{{ place.id }}/" class="btn btn-success btn-product"><span class="glyphicon glyphicon-shopping-cart"></span> مشاهده بیشتر</a></div>
+						</div>
 
-
-
+						<p> </p>
+					</div>
+				</div>
+			</div>
+{% endfor %}
+  </div>
+</div>
 {% endblock %}
 
 

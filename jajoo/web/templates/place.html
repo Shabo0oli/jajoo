@@ -1,0 +1,130 @@
+{% extends "template.html"%}
+{% load staticfiles %}
+
+{% block content %}
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#spec">مشخصات و امکانات</a></li>
+    <li><a data-toggle="tab" href="#comment"> نظرات </a></li>
+    <li><a data-toggle="tab" href="#">رزرو مکان</a></li>
+  </ul>
+<div class="tab-content">
+<div class="row tab-pane fade" id="comment">
+    <p> salam </p>
+</div>
+<div class="row tab-pane fade in active" id="spec">
+  <table class="table table-hover table-responsive">
+    <thead>
+    <tr>
+        <th> مشخصات</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> آدرس </td>
+        <td> {{ place.Address }}</td>
+      </tr>
+      <tr>
+          <td> هزینه به ازای هر شب</td>
+          <td> {{ place.CostPerDay }}</td>
+      </tr>
+      <tr>
+          <td> تعداد اتاق</td>
+          <td> {{ place.Bedroom }}</td>
+      </tr>
+    </tbody>
+    <thead>
+    <tr>
+        <th> امکانات </th>
+    </tr>
+    </thead>
+    <tbody>
+        {% if place.HasWifi == True %}
+        <tr class="success">
+            <td> وایفای </td>
+            <td> دارد</td>
+        </tr>
+        {% else %}
+        <tr class="danger">
+            <td> وایفای </td>
+            <td> ندارد</td>
+        </tr>
+        {% endif %}
+        {% if place.HasParking == True %}
+        <tr class="success">
+            <td> پارکینگ </td>
+            <td> دارد</td>
+        </tr>
+        {% else %}
+        <tr class="danger">
+            <td> وایفای </td>
+            <td> ندارد</td>
+        </tr>
+        {% endif %}
+
+        {% if place.HasBath == True %}
+        <tr class="success">
+            <td> حمام </td>
+            <td> دارد</td>
+        </tr>
+        {% else %}
+        <tr class="danger">
+            <td> حمام </td>
+            <td> ندارد</td>
+        </tr>
+        {% endif %}
+
+    {% if place.HasBath == True %}
+        <tr class="success">
+            <td> تلویزیون </td>
+            <td> دارد</td>
+        </tr>
+        {% else %}
+        <tr class="danger">
+            <td> تلویزیون </td>
+            <td> ندارد</td>
+        </tr>
+        {% endif %}
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+
+<script >
+$(document).ready(function () {
+        $(".subtaskinput").fadeOut(0);
+        $('.fa-square-o').hover(function () {
+            $(this).addClass('fa-check-square-o');
+            $(this).removeClass('fa-square-o');
+        }, function () {
+            $(this).addClass('fa-square-o');
+            $(this).removeClass('fa-check-square-o');
+        });
+
+});
+
+function showsubtaskinput(elementid){
+  if ($('.btn-'+elementid).text() == '+') {
+    $('.subtask-'+elementid).fadeIn(250);
+    $('.subtask-'+elementid).focus();
+    $('.btn-'+elementid).text ('-');
+  }
+  else {
+    $('.subtask-'+elementid).fadeOut(250);
+    $('.btn-'+elementid).text ('+');
+  }
+  // دگمه رو عوض کنیم به منفی و اگر منفی رو زد المنت رو حذف کنیم
+  return 0;
+}
+</script>
+
+<script type="text/javascript">
+$(".alert").fadeTo(10000, 500).slideUp(500, function(){
+    $(".alert").slideUp(10000);
+});
+</script>
+{% endblock %}
