@@ -26,9 +26,11 @@ def login_view(request):
             usrInfo = UserInfo.objects.filter(Username=user)
 
             context = {}
-            context['avatar'] = usrInfo[0].Avatar.url[4:]
+            #context['avatar'] = usrInfo[0].Avatar.url[4:]
             allplace = Place.objects.all()
             context['places'] = allplace
+            request.session['userInfo'] = usrInfo[0].Avatar.url[4:]
+            request.session['user'] = user.username
             return render(request, 'index.html', context)
         else:
             context = {}
