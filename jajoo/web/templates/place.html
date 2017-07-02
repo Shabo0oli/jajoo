@@ -9,7 +9,7 @@
     <li><a data-toggle="tab" href="#booking">رزرو مکان</a></li>
   </ul>
 <div class="tab-content">
-<div class="row tab-pane fade" id="comment">
+<div class="row tab-pane fade" style="margin-top: 30px" id="comment">
     {% for comment in comments %}
     <div class="col-sm-8">
             <div class="panel panel-white post panel-shadow">
@@ -41,8 +41,40 @@
 </div>
 </div>
 
-<div class="row tab-pane fade" id="booking">
-    <p> salam </p>
+<div class="row tab-pane fade" style="margin-top: 30px" id="booking">
+   <form role="form" method="post" action="{% url 'booking' %}">
+       {% csrf_token %}
+       <input type="hidden" name="place" value="{{ place.id }}" />
+       <div class="form-group">
+        <label for="id_CheckInDate_0" class="control-label">تاریخ ورود</label>
+        <input type="text" name="CheckInDate_0" class="vDateField" id="id_CheckInDate_0"/>
+        <a href="#" id="calendarlink0">  <span class="date-icon" title="Choose a Date"></span> </a>
+        </div>
+    <div class="form-group">
+
+        <div class="form-group">
+        <label for="id_CheckInDate_1" class="control-label">ساعت ورود</label>
+        <input type="text" name="CheckInDate_1" class="vTimeField" id="id_CheckInDate_1"/>
+        <a href="#" id="clocklink0">  <span class="clocl-icon" title="Choose a time"></span> </a>
+        </div>
+
+    </div>
+       <div class="form-group">
+        <label for="id_CheckOutDate_0" class="control-label">تاریخ خروج</label>
+        <input type="text" name="CheckOutDate_0" class="vDateField" id="id_CheckOutDate_0"/>
+        <a href="#" id="calendarlink1">  <span class="date-icon" title="Choose a Date"></span> </a>
+        </div>
+    <div class="form-group">
+
+        <div class="form-group">
+        <label for="id_CheckOutDate_1" class="control-label">ساعت خروج</label>
+        <input type="text" name="CheckOutDate_1" class="vTimeField" id="id_CheckOutDate_1"/>
+        <a href="#" id="clocklink1">  <span class="clocl-icon" title="Choose a time"></span> </a>
+        </div>
+
+    </div>
+    <input id="book" name="submit" type="submit" value="ارسال درخواست رزرو" class="btn btn-primary">
+    </form>
 </div>
 <div class="row tab-pane fade in active" id="spec">
   <table class="table table-hover table-responsive">

@@ -3,8 +3,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from .models import UserInfo, Place, Comment
-import datetime
+from .models import UserInfo, Place, Comment, Booking
+from datetime import datetime, date, time
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -88,7 +90,7 @@ def search(request):
     context['places'] = result
     return render(request, 'index.html', context)
 
-
+@login_required
 def comment(request):
     text = request.POST['textcomment']
     date = datetime.datetime.now()
@@ -96,4 +98,23 @@ def comment(request):
     complace = Place.objects.get(id=request.POST['place'])
     com = Comment(Text=text, CreationDate=date, Writer=writer, Place=complace)
     com.save()
-    return redirect('/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def booking(request):
+    checkindate = request.POST['CheckInDate_0']
+    checkintime = request.POST['CheckInDate_1']
+    y,m,d = checkindate.split('-')
+    h,t,s = checkintime.split(':')
+    checkindatetime =datetime.combine(date(int(y),int(m),int(d)), time(int(h),int(t),int(s)))
+    checkoutdate = request.POST['CheckOutDate_0']
+    checkouttime = request.POST['CheckOutDate_1']
+    y, m, d = checkoutdate.split('-')
+    h, t, s = checkouttime.split(':')
+    checkoutdatetime = datetime.combine(date(int(y), int(m), int(d)), time(int(h), int(t), int(s)))
+    bookplace=complace = Place.objects.get(id=request.POST['place'])
+
+    book =Booking(CheckInDate=checkindatetime, CheckOutDate=checkoutdatetime, Guest=request.user, Place=bookplace)
+    book.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
