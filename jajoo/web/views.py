@@ -4,6 +4,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from .models import UserInfo, Place, Comment
+import datetime
 
 # Create your views here.
 
@@ -86,3 +87,13 @@ def search(request):
         context['notFind'] = True
     context['places'] = result
     return render(request, 'index.html', context)
+
+
+def comment(request):
+    text = request.POST['textcomment']
+    date = datetime.datetime.now()
+    writer = request.user
+    complace = Place.objects.get(id=request.POST['place'])
+    com = Comment(Text=text, CreationDate=date, Writer=writer, Place=complace)
+    com.save()
+    return redirect('/')
