@@ -3,7 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from .models import UserInfo, Place
+from .models import UserInfo, Place, Comment
+import datetime
 
 # Create your views here.
 
@@ -26,9 +27,11 @@ def login_view(request):
             usrInfo = UserInfo.objects.filter(Username=user)
 
             context = {}
-            context['avatar'] = usrInfo[0].Avatar.url[4:]
+            #context['avatar'] = usrInfo[0].Avatar.url[4:]
             allplace = Place.objects.all()
             context['places'] = allplace
+            request.session['userInfo'] = usrInfo[0].Avatar.url[4:]
+            request.session['user'] = user.username
             return render(request, 'index.html', context)
         else:
             context = {}
@@ -69,6 +72,28 @@ def logout_view(request):
 
 def place(request , placeid):
     thisplace = Place.objects.get(id=placeid)
+    comments = Comment.objects.filter(Place_id=placeid)
     context = {}
     context['place'] = thisplace
+    context['comments'] = comments
     return render(request, 'place.html', context)
+
+
+def search(request):
+    context = {}
+    req = request.POST.get('srchterm', False)
+    result = Place.objects.filter(Address__contains=req)
+    if not result:
+        context['notFind'] = True
+    context['places'] = result
+    return render(request, 'index.html', context)
+
+
+def comment(request):
+    text = request.POST['textcomment']
+    date = datetime.datetime.now()
+    writer = request.user
+    complace = Place.objects.get(id=request.POST['place'])
+    com = Comment(Text=text, CreationDate=date, Writer=writer, Place=complace)
+    com.save()
+    return redirect('/')

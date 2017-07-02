@@ -2,6 +2,14 @@
 {% load staticfiles %}
 
 {% block content %}
+{% if notFind == True %}
+<div class="row">
+	<div class="alert alert-danger alert-dismissable fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    متاسفانه موردی یافت نشد
+  </div>
+</div>
+{% endif %}
 <div class="row">
   <div class="col-md-12">
 {% for place in places %}
