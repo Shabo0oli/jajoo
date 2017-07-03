@@ -1,0 +1,82 @@
+{% extends "template.html"%}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="row">
+  <h2>لیست درخواست های رزرو مکان های من</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>نام مهمان</th>
+        <th>تاریخ ورود</th>
+        <th>تاریخ خروج</th>
+        <th> وضعیت </th>
+        <th> Action </th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if requests %}
+
+    {% for request in requests %}
+    <tr {% if request.Status == "Pending" %} class="warning" {% endif %} >
+        <td> {{ request.Guest.username }}</td>
+        <td> {{ request.CheckInDate }}</td>
+        <td> {{ request.CheckOutDate }}</td>
+        <td> {{ request.Status }}</td>
+        {% if request.Status == "Pending" %}
+            <td> button </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td></td>
+        <td></td>
+        <td><p>  درخواستی برای رزرو وجود ندارد</p> </td>
+        <td></td>
+    </tr>
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+
+{% block footer %}
+
+<script >
+$(document).ready(function () {
+        $(".subtaskinput").fadeOut(0);
+        $('.fa-square-o').hover(function () {
+            $(this).addClass('fa-check-square-o');
+            $(this).removeClass('fa-square-o');
+        }, function () {
+            $(this).addClass('fa-square-o');
+            $(this).removeClass('fa-check-square-o');
+        });
+
+});
+
+function showsubtaskinput(elementid){
+  if ($('.btn-'+elementid).text() == '+') {
+    $('.subtask-'+elementid).fadeIn(250);
+    $('.subtask-'+elementid).focus();
+    $('.btn-'+elementid).text ('-');
+  }
+  else {
+    $('.subtask-'+elementid).fadeOut(250);
+    $('.btn-'+elementid).text ('+');
+  }
+  // دگمه رو عوض کنیم به منفی و اگر منفی رو زد المنت رو حذف کنیم
+  return 0;
+}
+</script>
+
+<script type="text/javascript">
+$(".alert").fadeTo(10000, 500).slideUp(500, function(){
+    $(".alert").slideUp(10000);
+});
+</script>
+{% endblock %}

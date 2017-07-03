@@ -118,3 +118,11 @@ def booking(request):
     book.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
+def myrequest(request):
+    context = {}
+    req = Booking.objects.filter(Place__Owner=request.user)
+    if not req:
+        context['requests'] = True
+    context['requests'] = req
+    return render(request, 'myrequest.html', context)

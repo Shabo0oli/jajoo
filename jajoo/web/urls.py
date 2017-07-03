@@ -9,5 +9,7 @@ urlpatterns = [
     url(r'^search/$', views.search, name='search'),
     url(r'^comment/$', views.comment, name='comment'),
     url(r'^booking/$', views.booking, name='booking'),
+    url(r'^myrequest/$', views.myrequest, name='myrequest'),
     url(r'^$', views.index, name='index'),
 ]
+

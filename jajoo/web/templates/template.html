@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
 
 
+<script type="text/javascript" src="{% static 'js/118.js' %}"></script>
 <script type="text/javascript" src="/admin/jsi18n/"></script>
 <script type="text/javascript" src="/static/admin/js/core.js"></script>
 <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
@@ -78,7 +79,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-left">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">خروج</a></li><li><img id="avatar" src="http://localhost:8009/{{ request.session.userInfo }}" ></li>
+                    <li> <a href="{% url 'myrequest' %}"> درخواست های رزرو</a> </li><li><a href="{% url 'logout' %}">خروج</a></li><li><img id="avatar" src="http://localhost:8009/{{ request.session.userInfo }}" ></li>
                     {% else %}
                     <li><a href="{% url 'register' %}">ثبت نام</a></li><li><a href="{% url 'login' %}">ورود</a></li>
                     <!--<li><a href="/static/todoer_release.apk">اپ اندروید</a></li>-->
