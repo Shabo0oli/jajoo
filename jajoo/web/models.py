@@ -21,7 +21,7 @@ class Place(models.Model):
     CostPerDay = models.IntegerField(default=0)
     Owner = models.ForeignKey(User, on_delete=models.CASCADE)
     Address = models.TextField(max_length=500)
-    Location = PlainLocationField(based_fields=['Address'], zoom=7)
+    Location = PlainLocationField(based_fields=['Address'], zoom=7, blank=True)
     Bedroom = models.IntegerField(default=0)
     HasParking = models.BooleanField(default=False)
     HasWifi = models.BooleanField(default=False)

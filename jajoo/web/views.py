@@ -138,3 +138,8 @@ def myrequest(request):
         context['mybooking'] = True
     context['mybooking'] = mybooking
     return render(request, 'myrequest.html', context)
+
+
+def addplace(request):
+    context = {}
+    return render(request, 'addplace.html', context)
