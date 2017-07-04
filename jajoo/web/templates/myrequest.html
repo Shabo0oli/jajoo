@@ -19,13 +19,27 @@
     {% if requests %}
 
     {% for request in requests %}
-    <tr {% if request.Status == "Pending" %} class="warning" {% endif %} >
+    <tr {% if request.Status == "Pending" %} class="warning" {% else %} {% if request.Status == "Accept" %} class="success" {% else %} class="danger" {% endif %} {% endif %}  >
         <td> {{ request.Guest.username }}</td>
         <td> {{ request.CheckInDate }}</td>
         <td> {{ request.CheckOutDate }}</td>
         <td> {{ request.Status }}</td>
         {% if request.Status == "Pending" %}
-            <td> button </td>
+            <td>
+
+                <form role="form" method="post" id="accept_form" >
+                {% csrf_token %}
+                <input type="hidden" name="accept" value="{{ request.id }}" />
+                </form>
+                <a href="javascript:{}" onclick="document.getElementById('accept_form').submit();" class="btn btn-xs btn-success"><i class="fa fa-check" aria-hidden="true"></i> </a>
+
+                <form role="form" method="post" id="reject_form" >
+                {% csrf_token %}
+                <input type="hidden" name="reject" value="{{ request.id }}" />
+                </form>
+                <a href="javascript:{}" onclick="document.getElementById('reject_form').submit();" class="btn btn-xs btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+            </td>
         {% endif %}
     </tr>
     {% endfor %}
@@ -40,6 +54,43 @@
     </tbody>
   </table>
 </div>
+
+<div class="row">
+  <h2>لیست درخواست های مهمانی من</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>نام میزبان</th>
+        <th>تاریخ ورود</th>
+        <th>تاریخ خروج</th>
+        <th> وضعیت </th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if mybooking %}
+
+    {% for mybook in mybooking %}
+    <tr {% if mybook.Status == "Pending" %} class="warning" {% else %} {% if mybook.Status == "Accept" %} class="success" {% else %} class="danger" {% endif %} {% endif %}  >
+        <td> {{ mybook.Place.Owner }}</td>
+        <td> {{ mybook.CheckInDate }}</td>
+        <td> {{ mybook.CheckOutDate }}</td>
+        <td> {{ mybook.Status }}</td>
+
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td></td>
+        <td></td>
+        <td><p>  درخواستی برای مهمانی وجود ندارد</p> </td>
+        <td></td>
+    </tr>
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+
+
 
 {% endblock %}
 

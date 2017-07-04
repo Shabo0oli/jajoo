@@ -120,9 +120,21 @@ def booking(request):
 
 
 def myrequest(request):
+    if 'accept' in request.POST:
+        b = Booking.objects.get(id=request.POST['accept'])
+        b.Status = 'Accept'
+        b.save()
+    elif 'reject' in request.POST:
+        b = Booking.objects.get(id=request.POST['reject'])
+        b.Status = 'Reject'
+        b.save()
     context = {}
     req = Booking.objects.filter(Place__Owner=request.user)
+    mybooking = Booking.objects.filter(Guest=request.user)
     if not req:
         context['requests'] = True
     context['requests'] = req
+    if not mybooking:
+        context['mybooking'] = True
+    context['mybooking'] = mybooking
     return render(request, 'myrequest.html', context)
