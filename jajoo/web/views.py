@@ -93,7 +93,7 @@ def search(request):
 @login_required
 def comment(request):
     text = request.POST['textcomment']
-    date = datetime.datetime.now()
+    date = datetime.now()
     writer = request.user
     complace = Place.objects.get(id=request.POST['place'])
     com = Comment(Text=text, CreationDate=date, Writer=writer, Place=complace)
@@ -142,4 +142,16 @@ def myrequest(request):
 
 def addplace(request):
     context = {}
-    return render(request, 'addplace.html', context)
+    if request.method == "POST":
+        costperday = request.POST['CostPerDay']
+        address = request.POST['Address']
+        bedroom = request.POST['Bedroom']
+        haswifi = bool(request.POST.get('HasWifi') == '1')
+        hasparking = bool(request.POST.get('HasParking') == '1')
+        hasbath = bool(request.POST.get('HasBath') == '1')
+        hastv = bool(request.POST.get('HasTv') == '1')
+        newplace = Place(Owner=request.user, CostPerDay=int(costperday), Address=address, Bedroom=bedroom, HasBath=hasbath, HasParking=hasparking, HasWifi=haswifi, HasTv=hastv)
+        newplace.save()
+        return index(request)
+    else:
+        return render(request, 'addplace.html', context)
