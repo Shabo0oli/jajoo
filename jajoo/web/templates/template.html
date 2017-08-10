@@ -16,6 +16,24 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap-rtl.css' %}" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}"  crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+
+
+<script type="text/javascript" src="{% static 'js/118.js' %}"></script>
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+<script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
+<script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+
+
     <!-- Latest compiled and minified CSS -->
 
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -46,7 +64,7 @@
                       جاجو
                     </a>
                 </div>
-                <div class="col-sm-4 col-md-4 pull-right" style="margin-right: 35%;">
+                <div class="col-sm-4 col-md-4 pull-right" style="margin-right: 25%;">
 		            <form method="post" action="/search/" class="navbar-form" role="search">
                         {% csrf_token %}
 		                <div class="input-group">
@@ -61,7 +79,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-left">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}">خروج</a></li><li><img id="avatar" src="http://localhost:8009/{{ request.session.userInfo }}" ></li>
+                    <li> <a href="{% url 'addplace' %}"> ایجاد مکان </a> </li><li> <a href="{% url 'myrequest' %}"> درخواست های رزرو</a> </li><li><a href="{% url 'logout' %}">خروج</a></li><li><img id="avatar" src="http://localhost:8009/{{ request.session.userInfo }}" ></li>
                     {% else %}
                     <li><a href="{% url 'register' %}">ثبت نام</a></li><li><a href="{% url 'login' %}">ورود</a></li>
                     <!--<li><a href="/static/todoer_release.apk">اپ اندروید</a></li>-->
@@ -87,10 +105,10 @@
           <div class="">
             <div class="">
 
-              <p>
+              <!--<p>
                 <strong>جاجو</strong> پروژه مهندسی نرم افزار ۲ شهاب کریمی و کیوان مظاهری<br>
 			<a href="https://github.com/Shabo0oli/jajoo">مخرن گیت‌هاب پروژه</a>
-              </p>
+              </p>-->
             </div>
           </div>
         </footer>

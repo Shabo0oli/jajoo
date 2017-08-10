@@ -1,0 +1,116 @@
+{% extends "template.html"%}
+{% load staticfiles %}
+
+{% block content %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+
+{% if user.is_authenticated %}
+    {% else %}
+    <p>
+برای دیدن این صفحه باید لاگین کنید
+    </p>
+    {% endif %}
+
+
+
+
+  {% if message %}
+  <div class="bs-callout bs-callout-info">
+    <h5>{{ message|safe }}</h5>
+  </div>
+  {% endif %}
+
+
+
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">ایجاد مکان</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" method="POST" action="{% url 'addplace' %}">
+            {% csrf_token %}
+            <input type="hidden" name="requestcode" value="True" />
+            <input type="hidden" name="next" value="{{ next }}" />
+            <div class="form-group">
+              <label for="id_CostPerDay" class="col-sm-3 control-label" >هزینه اجاره روزانه</label>
+              <div class="col-sm-9">
+                <input type="number" name="CostPerDay" value="0" class="vIntegerField" required id="id_CostPerDay">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="id_Address" class="col-sm-2 control-label">آدرس</label>
+              <div class="col-sm-10">
+                  <textarea name="Address"  cols="50" rows="5"  required id="id_Address"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="id_Location" class="col-sm-2 control-label" >مختصات مکانی</label>
+              <div class="col-sm-10">
+                  <input type="text" name="Location" required="" id="id_Location" data-location-field-options="{&quot;map.provider&quot;: &quot;google&quot;, &quot;map.zoom&quot;: 13, &quot;search.provider&quot;: &quot;google&quot;, &quot;search.suffix&quot;: &quot;&quot;, &quot;provider.google.api&quot;: &quot;//maps.google.com/maps/api/js&quot;, &quot;provider.google.api_key&quot;: &quot;&quot;, &quot;provider.google.map_type&quot;: &quot;ROADMAP&quot;, &quot;provider.mapbox.access_token&quot;: &quot;&quot;, &quot;provider.mapbox.max_zoom&quot;: 18, &quot;provider.mapbox.id&quot;: &quot;mapbox.streets&quot;, &quot;provider.openstreetmap.max_zoom&quot;: 18, &quot;resources.root_path&quot;: &quot;/static/location_field&quot;, &quot;resources.media&quot;: {&quot;js&quot;: [&quot;/static/location_field/js/jquery.livequery.js&quot;, &quot;/static/location_field/js/form.js&quot;]}, &quot;field_options&quot;: {&quot;based_fields&quot;: [&quot;Address&quot;], &quot;prefix&quot;: &quot;&quot;}}">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="id_Bedroom" class="col-sm-2 control-label" >تعداد اتاق خواب</label>
+              <div class="col-sm-10">
+                <input type="number" name="Bedroom" value="0" class="vIntegerField" required="" id="id_Bedroom">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="id_HasParking" class="col-sm-2 control-label" >پارکینگ</label>
+              <div class="col-sm-10">
+                <input type="radio" name="HasParking" id="id_HasParking" value="1">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="id_HasWifi" class="col-sm-2 control-label" >اینترنت</label>
+              <div class="col-sm-10">
+                <input type="radio" name="HasWifi" id="id_HasWifi" value="1">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="id_HasBath" class="col-sm-2 control-label" >حمام</label>
+              <div class="col-sm-10">
+                <input type="radio" name="Has‌Bath" id="id_HasBath" value="1">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="id_HasTv" class="col-sm-2 control-label" >تلویزیون</label>
+              <div class="col-sm-10">
+                <input type="radio" name="Has‌Tv" id="id_HasTv" value="1">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="id_Pic" class="col-sm-2 control-label" >عکس مکان</label>
+              <div class="col-sm-10">
+                <input type="file" name="Pic" id="id_Pic">
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">ایجاد مکان</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</div>
+
+{% endblock %}
